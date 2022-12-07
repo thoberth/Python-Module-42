@@ -75,8 +75,21 @@ class KmeansClustering:
 			return None
 		return self.centroids
 
+def parsing(**kwargs):
+	if not ("filepath" in kwargs and "ncentroid" in kwargs and "max_iter" in kwargs):
+		print("Error in program argument")
+		exit()
+	if not (kwargs["ncentroid"].isnumeric() and kwargs["max_iter"].isnumeric()):
+		print("Error in program argument")
+		exit()
+	return kwargs
+
 if __name__=="__main__":
-	with CsvReader("solar_system_census.csv", header=True) as csvreader:
+	if (len(sys.argv) != 4):
+		print("Error in program argument")
+		exit()
+	item = parsing(**dict(arg.split('=') for arg in sys.argv[1:]))
+	with CsvReader(item["filepath"], header=True) as csvreader:
 		if csvreader == None:
 				print("Error with file")
 		else:
@@ -86,11 +99,13 @@ if __name__=="__main__":
 	data = np.array(data)
 	# modifying the shape by deleting the first element for data
 	data = data[:, -3:].astype("float32")
-	# print(data)
-	kmean1 = KmeansClustering()
+
+	kmean1 = KmeansClustering(max_iter=int(item["ncentroid"]) , ncentroid=int(item["max_iter"]))
 	kmean1.fit(data)
 	centroids = kmean1.predict(data)
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
 	plt.scatter(centroids[0][0], centroids[0][1], centroids[0][2])
 	plt.show()
+
+# filepath='../ressources/solar_system_census.csv' ncentroid=4 max_iter=30
