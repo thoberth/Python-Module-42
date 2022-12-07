@@ -15,7 +15,7 @@ class CsvReader(object):
 		except:
 			print("Error while opening the file")
 			self.file = None
-			return
+			return None
 		data = list(self.file.read().split('\n'))
 		line = data[0]
 		self.len = len(list(line.split(self.sep)))
@@ -26,9 +26,11 @@ class CsvReader(object):
 			to_begin = 0
 		to_begin += self.skip_top
 		to_end = len(data) - self.skip_bottom
-		for i in range(to_begin, len(data)):
+		for i in range(to_begin, to_end):
 			new_list = list(str(data[i]).split(self.sep))
 			if (self.len != new_list.__len__()):
+				if (i == to_end -1 and new_list == [""]):
+					break
 				return None
 			else :
 				for i in new_list:
