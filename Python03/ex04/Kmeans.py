@@ -11,7 +11,7 @@ class KmeansClustering:
 		self.max_iter = max_iter  # number of max iterations to update the centroids
 		self.centroids = []  # values of the centroids
 
-	def fit(self, X): # entrainer le model
+	def fit(self, X): # entrainer le model, check si les centroids ne bougent plus
 		"""
 		Run the K-means clustering algorithm.
 		For the location of the initial centroids, random pick ncentroids from the dataset.
@@ -29,7 +29,7 @@ class KmeansClustering:
 			print("Error, X parameter is not a numpy.ndarray")
 			return None
 		# choose ncentroid in X randomly to set centroids
-		self.centroids = np.random.randint(len(X), size=self.ncentroid)
+		self.centroids = np.random.randint(len(X), size=self.ncentroid) # check si y a pas de repetitions
 		self.centroids = X[self.centroids, :]
 		# create ncentroid cluster
 		self.cluster = [[] for i in range(self.ncentroid)]
@@ -100,12 +100,12 @@ if __name__=="__main__":
 	# modifying the shape by deleting the first element for data
 	data = data[:, -3:].astype("float32")
 
-	kmean1 = KmeansClustering(max_iter=int(item["ncentroid"]) , ncentroid=int(item["max_iter"]))
+	kmean1 = KmeansClustering(max_iter=int(item["max_iter"]) , ncentroid=int(item["ncentroid"]))
 	kmean1.fit(data)
 	centroids = kmean1.predict(data)
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
-	plt.scatter(centroids[0][0], centroids[0][1], centroids[0][2])
+	plt.scatter(centroids[:,0], centroids[:, 1], centroids[:,2])
 	plt.show()
 
 # filepath='../ressources/solar_system_census.csv' ncentroid=4 max_iter=30
