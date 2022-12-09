@@ -50,3 +50,5 @@ class FileLoader:
 if __name__=="__main__":
 	fl = FileLoader()
 	fl.display(fl.load("../athlete_events.csv"), 10)
+	print('\n\n')
+	fl.display(fl.load("../athlete_events.csv"), -5)
