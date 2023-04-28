@@ -1,7 +1,7 @@
 import sys
 
 def whois(arg):
-	if(arg.__len__() != 2):
+	if(len(arg) != 2):
 		print('AssertionError: more than one argument are provided')
 		return
 	elif (arg[1].isnumeric() == False):
