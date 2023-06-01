@@ -4,7 +4,9 @@ def whois(arg):
 	if(len(arg) != 2):
 		print('AssertionError: more than one argument are provided')
 		return
-	elif (arg[1].isnumeric() == False):
+	try:
+		x = int(arg[1])
+	except :
 		print('AssertionError: argument is not an integer')
 		return
 	x = int(arg[1], 10)
