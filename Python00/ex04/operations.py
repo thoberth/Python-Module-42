@@ -1,14 +1,15 @@
 import sys
 
-if (sys.argv.__len__() < 3):
+if (len(sys.argv) < 3):
 	print('Usage: python operations.py <number1> <number2>')
-elif (sys.argv.__len__() > 3):
+elif (len(sys.argv) > 3):
 	print('AssertionError: too many arguments')
-elif (sys.argv[1].isnumeric() == False or sys.argv[2].isnumeric() == False):
-	print('AssertionError: only integers')
 else:
-	a = int(sys.argv[1])
-	b = int(sys.argv[2])
+	try:
+		a = int(sys.argv[1])
+		b = int(sys.argv[2])
+	except:
+		print('AssertionError: only integers')
 	print('Sum:\t\t{}'.format(a+b))
 	print('Difference:\t{}'.format(a-b))
 	print('Product:\t{}'.format(a*b))
