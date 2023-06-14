@@ -5,9 +5,9 @@ class GotCharacter:
 		self.is_alive = c_is_alive
 
 class Stark(GotCharacter):
-	""" The best Family in GoT !"""
+	"""The best Family in GoT !"""
 	def __init__(self, c_first_name: str = None, c_is_alive: bool = True):
-		GotCharacter.__init__(self, c_first_name, c_is_alive)
+		super().__init__(c_first_name, c_is_alive)
 		self.family_name = "Stark"
 		self.house_words = "Winter is Coming"
 
@@ -24,9 +24,9 @@ class Stark(GotCharacter):
 			return 'I am {} {}, my house word is {}, i am alive.'.format(self.first_name, self.family_name, self.house_words)
 
 class Targaryen(GotCharacter):
-	""" The best Family in House Of Dragons !"""
+	"""The best Family in House Of Dragons !"""
 	def __init__(self, c_first_name: str = None, c_is_alive: bool = True):
-		GotCharacter.__init__(self, c_first_name, c_is_alive)
+		super().__init__(c_first_name, c_is_alive)
 		self.family_name = "Targaryen"
 		self.house_words = "We have a lot of Dragons!"
 

@@ -8,43 +8,24 @@ def generator(text, sep=" ", option=None):
 		print("ERROR: invalid option")
 		return
 	if (isinstance(text, str) != True or isinstance(sep, str) != True):
-		print("ERROR: text is invalid")
+		print("ERROR: text or separator is invalid")
 		return
-	word = ""
-	new_list = []
-	for i in text:
-		if (i == sep):
-			if (word != ""):
-				new_list.append(word)
-			word = ""
-		else:
-			word += i
-	if (word != ""):
-		new_list.append(word)
+	new_list = text.split(sep)
 	if (option == "shuffle"):
-		result = []
-		while len(new_list) > 0:
-			index = random.randrange(0,len(new_list))
-			result.append(new_list.pop(index))
-		new_list =  result
+		random.shuffle(new_list)
 	elif (option == "unique"):
-		i = 0
-		while i < new_list.__len__():
-			for y in range(i):
-				if(new_list[y] == new_list[i]):
-					new_list.pop(i)
-					i = 0
-					break
-			i += 1
+		new_list = [x for i, x in enumerate(new_list) if x not in new_list[:i]]
 	elif (option == "ordered"):
 		new_list.sort()
 	for i in new_list:
 		yield i
 
 if (__name__ == "__main__"):
-	if (sys.argv.__len__() == 3):
+	if (len(sys.argv) == 3):
 		for word in generator(sys.argv[1], sys.argv[2]):
 			print(word)
-	else :
+	elif (len(sys.argv) == 4):
 		for word in generator(sys.argv[1], sys.argv[2], sys.argv[3]):
 			print(word)
+	else:
+		print('Usage: python generator.py <text> <separator> <option>')
