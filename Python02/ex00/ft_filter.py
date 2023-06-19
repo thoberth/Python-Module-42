@@ -1,6 +1,6 @@
 from inspect import isfunction
-def ft_filter(function_to_apply, iterable):
 
+def ft_filter(function_to_apply, iterable):
 	"""Filter the result of function apply to all elements of the iterable.
 	Args:
 	function_to_apply: a function taking an iterable.
