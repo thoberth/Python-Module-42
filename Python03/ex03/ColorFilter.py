@@ -171,7 +171,7 @@ if __name__=="__main__":
 	im1 = ip.load("../42AI.png")
 	im2 = ip.load("../elon_canaGAN.png")
 	im3 = ip.load("../IMG_2803 - copie.png")
-	# ip.display(cf.invert(im1))
+	ip.display(cf.invert(im1))
 	# ip.display(cf.invert(im2))
 	# ip.display(cf.to_blue(im1))
 	# ip.display(cf.to_blue(im2))

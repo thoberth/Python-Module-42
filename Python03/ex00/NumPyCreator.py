@@ -22,7 +22,7 @@ class NumPyCreator:
 	def from_shape(self, shape, value=0): # shape is the number of elements in each dimension
 		if not isinstance(shape, tuple):
 			return None
-		return numpy.full(shape, value)
+		return numpy.full(shape, value, dtype='float64')
 
 	def random(self, shape):
 		if not isinstance(shape, tuple):
