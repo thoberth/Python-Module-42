@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.abspath("../../Python02/ex03"))
 from csvreader import *
 import numpy as np
+import pandas as pd
 
 class KmeansClustering:
 	def __init__(self, max_iter=20, ncentroid=5):
@@ -82,6 +83,9 @@ def parsing(**kwargs):
 	if not (kwargs["ncentroid"].isnumeric() and kwargs["max_iter"].isnumeric()):
 		print("Error in program argument")
 		exit()
+	if int(kwargs['ncentroid']) < 1 or int(kwargs['max_iter']) < 1:
+		print("Error in program argument")
+		exit()
 	return kwargs
 
 if __name__=="__main__":
@@ -89,23 +93,23 @@ if __name__=="__main__":
 		print("Error in program argument")
 		exit()
 	item = parsing(**dict(arg.split('=') for arg in sys.argv[1:]))
-	with CsvReader(item["filepath"], header=True) as csvreader:
-		if csvreader == None:
-				print("Error with file")
-		else:
-			header = csvreader.getheader()
-			data = csvreader.getdata()
+	try:
+		data = pd.read_csv(item["filepath"])
+	except:
+		print("Error while opening the file")
+		exit()
 	# list to np.ndarray
 	data = np.array(data)
-	# modifying the shape by deleting the first element for data
-	data = data[:, -3:].astype("float32")
+	data = data[:, -3:]
 
 	kmean1 = KmeansClustering(max_iter=int(item["max_iter"]) , ncentroid=int(item["ncentroid"]))
 	kmean1.fit(data)
 	centroids = kmean1.predict(data)
+
 	fig = plt.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	plt.scatter(centroids[:,0], centroids[:, 1], centroids[:,2])
+	ax = fig.add_subplot(projection='3d')
+	ax.scatter(data[:,0], data[:, 1], data[:,2], marker='o', s=10)
+	ax.scatter(centroids[:, 0], centroids[:, 1], centroids[:,2], marker='^', s=300)
 	plt.show()
 
 # filepath='../ressources/solar_system_census.csv' ncentroid=4 max_iter=30
