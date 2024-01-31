@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append(os.path.abspath("../../Python04/ex00"))
-from FileLoader import *
+import pandas as pd
 
 def how_many_medals(df, name):
 	if not (isinstance(df, pd.DataFrame) and isinstance(name, str)):
@@ -25,16 +25,15 @@ def how_many_medals(df, name):
 	return res
 
 if __name__=="__main__":
-	fl = FileLoader()
-	data = fl.load("../athlete_events.csv")
+	df = pd.read_csv("../athlete_events.csv")
 	print("Per Knut Aaland")
-	[print(key, value) for key, value in how_many_medals(data, "Per Knut Aaland").items()]
+	[print(key, value) for key, value in how_many_medals(df, "Per Knut Aaland").items()]
 	print("Kjetil Andr Aamodt")
 	[print(key, value)
-            for key, value in how_many_medals(data, "Kjetil Andr Aamodt").items()]
+            for key, value in how_many_medals(df, "Kjetil Andr Aamodt").items()]
 	print("Lowell Conrad Bailey")
 	[print(key, value)
-            for key, value in how_many_medals(data, "Lowell Conrad Bailey").items()]
+            for key, value in how_many_medals(df, "Lowell Conrad Bailey").items()]
 	print("Usain St. Leo Bolt")
 	[print(key, value)
-            for key, value in how_many_medals(data, "Usain St. Leo Bolt").items()]
+            for key, value in how_many_medals(df, "Usain St. Leo Bolt").items()]

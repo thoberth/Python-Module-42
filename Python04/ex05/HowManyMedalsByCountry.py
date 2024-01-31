@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append(os.path.abspath("../../Python04/ex00"))
-from FileLoader import *
+import pandas as pd
 import numpy as np
 
 def how_many_medals_by_country(df, country):
@@ -47,6 +47,6 @@ def how_many_medals_by_country(df, country):
 	return res
 
 if __name__=="__main__":
-	# [print(key, value) for key, value in how_many_medals_by_country(FileLoader().load("../athlete_events.csv"), 'FRA').items()]
+	[print(key, value) for key, value in how_many_medals_by_country(pd.read_csv("../athlete_events.csv"), 'FRA').items()]
 	# check on internet the result
 	pass

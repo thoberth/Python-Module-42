@@ -1,8 +1,7 @@
 import os
 import sys
 sys.path.append(os.path.abspath("../../Python04/ex00"))
-from FileLoader import *
-
+import pandas as pd
 def yougest_fellah(df, oYear):
 	if not isinstance(df, pd.core.frame.DataFrame) or not isinstance(oYear, int):
 		print("Error parameter type are wrong")
@@ -17,12 +16,15 @@ def yougest_fellah(df, oYear):
 		print(res, "in {}".format(oYear))
 
 if __name__=="__main__":
-	fl = FileLoader()
-	csvFileData = fl.load("../athlete_events.csv")
-	yougest_fellah(csvFileData, 1998)
-	yougest_fellah(csvFileData, 2004)
-	yougest_fellah(csvFileData, 1999)
-	yougest_fellah(csvFileData, 1996)
-	yougest_fellah(csvFileData, 2000)
-	yougest_fellah(csvFileData, 1984)
-	yougest_fellah(csvFileData, 1997)
+	try:
+		df = pd.read_csv("../athlete_events.csv")
+	except:
+		print('error with file, verify path')
+		exit()
+	yougest_fellah(df, 1998)
+	yougest_fellah(df, 2004)
+	yougest_fellah(df, 1999)
+	yougest_fellah(df, 1996)
+	yougest_fellah(df, 2000)
+	yougest_fellah(df, 1984)
+	yougest_fellah(df, 1997)

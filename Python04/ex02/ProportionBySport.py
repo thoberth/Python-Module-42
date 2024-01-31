@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append(os.path.abspath("../../Python04/ex00"))
-from FileLoader import *
+import pandas as pd
 
 def proportion_by_sport(df, oYear, sport, gender):
 	if not (isinstance(df, pd.DataFrame) and isinstance(oYear, int) and\
@@ -18,8 +18,7 @@ def proportion_by_sport(df, oYear, sport, gender):
 		print("Error while searching in DataFrame, no data for {} in {}".format(sport, oYear))
 
 if __name__=="__main__":
-	fl = FileLoader()
-	df = fl.load("../athlete_events.csv")
+	df = pd.read_csv("../athlete_events.csv")
 	proportion_by_sport(df, 2004, 'Tennis', "F")
 	proportion_by_sport(df, 2004, 'Tennis', "M")
 	proportion_by_sport(df, 1997, 'Basketball', "M")

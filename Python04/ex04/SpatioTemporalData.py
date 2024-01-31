@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append(os.path.abspath("../../Python04/ex00"))
-from FileLoader import *
+import pandas as pd
 
 class SpatioTemporalData:
 	def __init__(self, df):
@@ -42,7 +42,7 @@ class SpatioTemporalData:
 
 
 if __name__=="__main__":
-	stdata = SpatioTemporalData(FileLoader().load("../athlete_events.csv"))
+	stdata = SpatioTemporalData(pd.read_csv("../athlete_events.csv"))
 	print(stdata.when("Barcelona"))
 	print(stdata.where(1896))
 	print(stdata.when("Paris"))
