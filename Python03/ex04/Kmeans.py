@@ -78,10 +78,13 @@ class KmeansClustering:
 
 def parsing(**kwargs):
 	if not ("filepath" in kwargs and "ncentroid" in kwargs and "max_iter" in kwargs):
-		print("Error in program argument")
+		print("Error in program argument, name of argument are wrong")
 		exit()
 	if not (kwargs["ncentroid"].isnumeric() and kwargs["max_iter"].isnumeric()):
-		print("Error in program argument")
+		print("Error in program argument, some arguments must be numeric value")
+		exit()
+	if int(kwargs["ncentroid"]) < 1 and int(kwargs["max_iter"]) < 1:
+		print("Error in program argument, ncentroid and max_iter must be > 1")
 		exit()
 	return kwargs
 
@@ -90,18 +93,21 @@ if __name__=="__main__":
 		print("Error in program argument")
 		exit()
 	item = parsing(**dict(arg.split('=') for arg in sys.argv[1:]))
-	data = pd.read_csv(item['filepath'])
+	try:
+		data = pd.read_csv(item['filepath'])
+	except:
+		print("Error in program argument")
+		exit()
 	# list to np.ndarray
-	data = np.array(data)
-	# modifying the shape by deleting the first element for data
-	# data = data[:, -3:].astype("float32")
+	data = np.array(data)[:, -3:]
 
 	kmean1 = KmeansClustering(max_iter=int(item["max_iter"]) , ncentroid=int(item["ncentroid"]))
 	kmean1.fit(data)
 	centroids = kmean1.predict(data)
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
-	plt.scatter(centroids[:,0], centroids[:, 1], centroids[:,2])
+	ax.scatter(data[:,0], data[:, 1], data[:, 2], marker='o', s=10)
+	ax.scatter(centroids[:,0], centroids[:, 1], centroids[:,2], marker='^', s=100)
 	plt.show()
 
 # filepath='../ressources/solar_system_census.csv' ncentroid=4 max_iter=30
