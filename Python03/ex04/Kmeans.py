@@ -4,6 +4,7 @@ import sys
 sys.path.append(os.path.abspath("../../Python02/ex03"))
 from csvreader import *
 import numpy as np
+import pandas as pd
 
 class KmeansClustering:
 	def __init__(self, max_iter=20, ncentroid=5):
@@ -89,16 +90,11 @@ if __name__=="__main__":
 		print("Error in program argument")
 		exit()
 	item = parsing(**dict(arg.split('=') for arg in sys.argv[1:]))
-	with CsvReader(item["filepath"], header=True) as csvreader:
-		if csvreader == None:
-				print("Error with file")
-		else:
-			header = csvreader.getheader()
-			data = csvreader.getdata()
+	data = pd.read_csv(item['filepath'])
 	# list to np.ndarray
 	data = np.array(data)
 	# modifying the shape by deleting the first element for data
-	data = data[:, -3:].astype("float32")
+	# data = data[:, -3:].astype("float32")
 
 	kmean1 = KmeansClustering(max_iter=int(item["max_iter"]) , ncentroid=int(item["ncentroid"]))
 	kmean1.fit(data)
